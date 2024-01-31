@@ -15,7 +15,7 @@ type polecenie struct {
 
 var suma int
 
-// planowanie fcfs
+// fcfs scheduling
 func planowanie_fcfs(polecenia []polecenie) {
 	fmt.Println("FCFS")
 	ilosc := len(polecenia)
@@ -48,7 +48,7 @@ func planowanie_fcfs(polecenia []polecenie) {
 	fmt.Println("Średni czas oczekiwania: ", float64(czas-suma)/float64(ilosc))
 }
 
-// planowanie sjf
+// sjf scheduling
 func planowanie_sjf(polecenia []polecenie) {
 	fmt.Println("SJF")
 	ilosc := len(polecenia)
@@ -68,7 +68,7 @@ func planowanie_sjf(polecenia []polecenie) {
 			break
 		}
 		if kolejka[len(kolejka)-1].czas_p == 0 {
-			//sortowanie po czas_d
+			//sorting by czas_d
 			for i := 0; i < len(kolejka); i++ {
 				for j := 0; j < len(kolejka)-1; j++ {
 					if kolejka[j].czas_d > kolejka[j+1].czas_d {
@@ -83,7 +83,7 @@ func planowanie_sjf(polecenia []polecenie) {
 		if kolejka[0].czas_d == 0 {
 			czas = czas + (takt - kolejka[0].czas_p)
 			kolejka = kolejka[1:]
-			//sortowanie po priorytet
+			//sorting by czas_d
 			for i := 0; i < len(kolejka); i++ {
 				for j := 0; j < len(kolejka)-1; j++ {
 					if kolejka[j].czas_d > kolejka[j+1].czas_d {
@@ -114,7 +114,7 @@ func priorytetetowe(polecenia []polecenie, postarzanie int) {
 			break
 		}
 		if kolejka[len(kolejka)-1].czas_p == 0 {
-			//sortowanie po priorytet
+			//sorting by priorytet
 			for i := 0; i < len(kolejka); i++ {
 				for j := 0; j < len(kolejka)-1; j++ {
 					if kolejka[j].priorytet > kolejka[j+1].priorytet {
@@ -136,7 +136,7 @@ func priorytetetowe(polecenia []polecenie, postarzanie int) {
 		if kolejka[0].czas_d == 0 {
 			czas = czas + (takt - kolejka[0].czas_p)
 			kolejka = kolejka[1:]
-			//sortowanie po priorytet
+			//sorting by priorytet
 			for i := 0; i < len(kolejka); i++ {
 				for j := 0; j < len(kolejka)-1; j++ {
 					if kolejka[j].priorytet > kolejka[j+1].priorytet {
@@ -144,7 +144,7 @@ func priorytetetowe(polecenia []polecenie, postarzanie int) {
 					}
 				}
 			}
-			//sortowanie po czas_d
+			//sorting by czas_d
 			for i := 0; i < len(kolejka); i++ {
 				if kolejka[i].priorytet == kolejka[0].priorytet {
 					for j := 0; j < len(kolejka)-1; j++ {
@@ -169,7 +169,7 @@ func main() {
 	czas_d := []int{}
 	priorytet := []int{}
 	postarzanie := 0
-	//Wczytanie danych z pliku
+	//Reading file
 	data, err := ioutil.ReadFile(fileName)
 	if err != nil {
 
@@ -177,11 +177,9 @@ func main() {
 		fmt.Scanf(" ")
 		return
 	}
-	//Podział danych na linie
 	linie := strings.Split(string(data), "\r\n")
-	//wyswietlenie linii
 
-	//Podział lines [0] na słowa
+	//Spliting lines
 	for i, linia := range linie {
 		slowa := strings.Split(linia, " ")
 		for _, slowo := range slowa {
@@ -207,7 +205,7 @@ func main() {
 		}
 
 	}
-	//dodawanie do polecenia
+	//Adding to slice
 	for i := 0; i < len(czas_p); i++ {
 		polecenia = append(polecenia, polecenie{czas_p[i], czas_d[i], priorytet[i]})
 	}
