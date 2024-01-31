@@ -15,3 +15,8 @@ The project includes the following scheduling algorithms:
 - Priority Scheduling
 
 Each algorithm is implemented as a function in `main.go`.
+## Usage
+
+To run the project, use the `go run` command:
+
+go run main.go
